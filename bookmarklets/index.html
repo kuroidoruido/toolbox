@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bookmarklets collection - Anthony Pena's Toolbox</title>
+</head>
+
+<body>
+    <h1>Bookmarklets collection - Anthony Pena's Toolbox</h1>
+
+    <h2>Basics</h2>
+
+    <section>
+        <details>
+            <summary>Alert <a href="javascript:alert('I am a link!')">Run</a></summary>
+
+            <pre><code>
+javascript:alert('I am a link!')
+            </code></pre>
+        </details>
+    </section>
+
+    <section>
+        <details>
+            <summary>multiline <a href="javascript:const style = document.createElement('style');
+                style.innerText = 'a,a:hover,a:focus,a:visited{color: yellow;}';
+                document.head.append(style);">Run</a></summary>
+
+            <pre><code>
+javascript:const style = document.createElement('style');
+style.innerText = 'a,a:hover,a:focus,a:visited{color: yellow;}';
+document.head.append(style);
+            </code></pre>
+        </details>
+    </section>
+
+    <section>
+        <details>
+            <summary>IIFE <a href="javascript:(function () {
+                    const style = document.createElement('style');
+                    style.innerText = 'a,a:hover,a:focus,a:visited{color: yellow;}';
+                    document.head.append(style);
+                })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(function () {
+    const style = document.createElement('style');
+    style.innerText = 'a,a:hover,a:focus,a:visited{color: yellow;}';
+    document.head.append(style);
+})()
+            </code></pre>
+        </details>
+    </section>
+
+    <h2>Use cases</h2>
+
+    <section>
+
+        <details>
+            <summary>
+                Set element style <a href="javascript:(function() {
+                    document.querySelector('#element-1').style = 'border: red 1px solid'
+                })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(function() {
+    document.querySelector('#element-1').style = 'border: red 1px solid'
+})()
+            </code></pre>
+        </details>
+        <br />
+        <div id="element-1">I am a bordered box</div>
+    </section>
+
+    <section>
+        <details>
+            <summary>Make visible undefined/null classes <a href="javascript:(() => {
+                    const style = document.createElement('style');
+                    style.innerText = '.undefined,.null{border: 1px solid red;}';
+                    document.head.append(style);
+                })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(() => {
+    const style = document.createElement('style');
+    style.innerText = '.undefined,.null{border: 1px solid red;}';
+    document.head.append(style);
+})()
+            </code></pre>
+        </details>
+        <br />
+        <div class="undefined">I have undefined as class</div>
+        <div class="null">I have null as class</div>
+    </section>
+
+    <section>
+        <details>
+            <summary>Make visible not accessible images <a href="javascript:(() => {
+                    const style = document.createElement('style');
+                    style.innerText = 'img:not([alt]),img[alt=\'\']{border: 2px dotted red;}';
+                    document.head.append(style);
+                })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(() => {
+    const style = document.createElement('style');
+    style.innerText = 'img:not([alt]),img[alt=""]{border: 2px dotted red;}';
+    document.head.append(style);
+})()
+            </code></pre>
+        </details>
+        <br />
+        <div style="display: flex">
+            <img style="width: 200px; margin-right: 1rem;" src="./adventure-1840310_640.jpg" />
+            <img style="width: 200px; margin-right: 1rem;" alt="" src="./adventure-1840310_640.jpg" />
+            <img style="width: 200px; margin-right: 1rem;" src="./adventure-1840310_640.jpg"
+                alt="Yellow hot air balloon" />
+        </div>
+    </section>
+
+    <section>
+        <details>
+            <summary>Make visible e2e selectors <a href="javascript:(() => {
+    const style = document.createElement('style');
+    style.innerText = `
+    [data-e2e]{border: 3px dashed green;}
+    [data-auto]{border: 3px dashed orange;}
+    [e2e-id]{border: 3px dashed blue;}
+    `;
+    document.head.append(style);
+})()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(() => {
+    const style = document.createElement('style');
+    style.innerText = `
+    [data-e2e]{border: 3px dashed green;}
+    [data-auto]{border: 3px dashed orange;}
+    [e2e-id]{border: 3px dashed blue;}
+    `;
+    document.head.append(style);
+})()
+            </code></pre>
+        </details>
+        <br />
+        <div data-e2e="foo">I have data-e2e attribute</div>
+        <div data-auto="foo">I have data-auto attribute</div>
+        <div e2e-id="foo">I have e2e-id attribute</div>
+    </section>
+
+    <section>
+        <details>
+            <summary>Make site search with Google <a href="javascript:(() => {
+                const currentUrl = document.location.href;
+                const googleSearchUrl = `https://www.google.fr/search?q=url%3A${currentUrl}%2F`;
+                document.location.replace(googleSearchUrl);
+            })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(() => {
+    const currentUrl = document.location.href;
+    const googleSearchUrl = `https://www.google.fr/search?q=url%3A${currentUrl}%2F`;
+    document.location.replace(googleSearchUrl);
+})()
+            </code></pre>
+        </details>
+    </section>
+
+    <section>
+        <details>
+            <summary>insert a React countdown <a href="javascript:(async () => {
+const importScript = (url) => {
+    const script = document.createElement('script');
+    script.src = url;
+    document.head.append(script);
+};
+importScript('https://unpkg.com/react@17/umd/react.development.js');
+importScript('https://unpkg.com/react-dom@17/umd/react-dom.development.js');
+const div = document.createElement('div');
+div.id = 'react-countdown';
+div.style = 'position: absolute;top:0; right:0;';
+document.body.append(div);
+setTimeout(() => {
+    const Counter = () => {
+        const [remaining,setRemaining] = React.useState(10);
+        React.useEffect(() => {
+            if (remaining > 0) {
+                setTimeout(() => setRemaining(remaining-1), 1000);
+            } else if (remaining === 0) {
+                setRemaining('👻')
+            }
+        }, [remaining, setRemaining]);
+        return remaining;
+    };
+    ReactDOM.render(React.createElement(Counter, null), document.getElementById('react-countdown'));
+}, 1000);
+            })()">Run</a>
+            </summary>
+
+            <pre><code>
+javascript:(async () => {
+    const importScript = (url) => {
+        const script = document.createElement('script');
+        script.src = url;
+        document.head.append(script);
+    };
+    importScript('https://unpkg.com/react@17/umd/react.development.js');
+    importScript('https://unpkg.com/react-dom@17/umd/react-dom.development.js');
+    const div = document.createElement('div');
+    div.id = 'react-countdown';
+    div.style = 'position: absolute;top:0; right:0;';
+    document.body.append(div);
+    setTimeout(() => {
+        const Counter = () => {
+            const [remaining,setRemaining] = React.useState(10);
+            React.useEffect(() => {
+                if (remaining > 0) {
+                    setTimeout(() => setRemaining(remaining-1), 1000);
+                } else if (remaining === 0) {
+                    setRemaining('👻')
+                }
+            }, [remaining, setRemaining]);
+            return remaining;
+        };
+        ReactDOM.render(React.createElement(Counter, null), document.getElementById('react-countdown'));
+    }, 1000);
+})()
+            </code></pre>
+        </details>
+    </section>
+
+</body>
+
+</html>
